@@ -9,20 +9,20 @@
 #include "matrix.h"
 #include "mopencl.h"
 
-void sequential(float** a, float** b, float** c) {
+void sequential(float* a, float* b, float* c) {
 	mymultiply(a, b, c);
 }
 
-void opencl(float** a, float** b, float** c){
+void opencl(float* a, float* b, float* c){
 	myopencl(a,b,c);
 }
 
 int main(int argc, char *argv[]) {
 
 	printf("hello 14 \n");
-	float** h_a = (float**) calloc(LENGTH * LENGTH, sizeof(float));  // a vector
-	float** h_b = (float**) calloc(LENGTH * LENGTH, sizeof(float));  // b vector
-	float** h_c = (float**) calloc(LENGTH * LENGTH, sizeof(float));
+	float* h_a = (float*) calloc(LENGTH * LENGTH, sizeof(float));  // a vector
+	float* h_b = (float*) calloc(LENGTH * LENGTH, sizeof(float));  // b vector
+	float* h_c = (float*) calloc(LENGTH * LENGTH, sizeof(float));
 
 	printf("hello 19 \n");
 

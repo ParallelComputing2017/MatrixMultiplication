@@ -66,7 +66,7 @@ const char *KernelSource =
 
 //------------------------------------------------------------------------------
 
-int myopencl(float** h_a, float** h_b, float** h_c) {
+int myopencl(float* h_a, float* h_b, float* h_c) {
 	int err;               // error code returned from OpenCL calls
 
 	int count = LENGTH;
