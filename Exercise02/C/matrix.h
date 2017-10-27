@@ -10,16 +10,17 @@
 
 #include <stdio.h>
 
-#define LENGTH (5)
+#define LENGTH (2)
 
 void mymultiply(float** a, float** b, float** c) {
 	printf("mymultiply \n");
 
 	for (int i = 0; i < LENGTH; i++) {
-		printf("multiply row: %i \n",  i);
-		for (int j = 0; j < LENGTH; j) {
-			printf("multiply column: %i \t",  j);
-			for (int k = 0; k < LENGTH; k) {
+
+		for (int j = 0; j < LENGTH; j++) {
+
+			for (int k = 0; k < LENGTH; k++) {
+
 				c[i][j] += a[i][k] * b[k][j];
 			}
 		}
