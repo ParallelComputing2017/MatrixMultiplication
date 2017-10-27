@@ -49,15 +49,15 @@ extern int output_device_info(cl_device_id);
 const char *KernelSource =
 		"\n"
 				"__kernel void mymultiply(                                                 \n"
-				"   __global float** a,                                                  \n"
-				"   __global float** b,                                                  \n"
-				"   __global float** c,                                                  \n"
+				"   __global float* a,                                                  \n"
+				"   __global float* b,                                                  \n"
+				"   __global float* c,                                                  \n"
 				"   const unsigned int count)                                           \n"
 				"{                                                                      \n"
 				"   for (int i = 0; i < count; i++) {           \n"
 				"   	for (int j = 0; j < count; j++) {       \n"
 				"   		for (int k = 0; k < count; k++) {   \n"
-				"   			c[i][j] += a[i][k] * b[k][j];    \n"
+				"   			c[i * count + j] += a[i * count +k] * b[k * count +j];    \n"
 				"   		}                                    \n"
 				"   	}                                        \n"
 				"   }                                            \n"
@@ -142,7 +142,7 @@ int myopencl(float* h_a, float* h_b, float* h_c) {
 	}
 
 	// Create the compute kernel from the program
-	ko_vadd = clCreateKernel(program, "vadd", &err);
+	ko_vadd = clCreateKernel(program, "mymultiply", &err);
 	checkError(err, "Creating kernel");
 
 	long matrix_size = sizeof(float) * count * count;
@@ -211,6 +211,7 @@ int myopencl(float* h_a, float* h_b, float* h_c) {
 	free(h_a);
 	free(h_b);
 	free(h_c);
+
 }
 
 #endif /* MOPENCL_H_ */
