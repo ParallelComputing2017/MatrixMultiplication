@@ -53,19 +53,19 @@ endif
 # Add inputs and outputs from these tool invocations to the build variables 
 
 # All Target
-all: Vadd
+all: MatrixDot
 
 # Tool invocations
-Vadd: $(OBJS) $(USER_OBJS)
+MatrixDot: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: NVCC Linker'
-	/usr/local/cuda-7.5/bin/nvcc --cudart static --relocatable-device-code=false -link -o  "Vadd" $(OBJS) $(USER_OBJS) $(LIBS)
+	/usr/local/cuda-7.5/bin/nvcc --cudart static --relocatable-device-code=false -link -o  "MatrixDot" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
 # Other Targets
 clean:
-	-$(RM) $(CU_DEPS)$(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) Vadd
+	-$(RM) $(CU_DEPS)$(OBJS)$(C++_DEPS)$(C_DEPS)$(CC_DEPS)$(CPP_DEPS)$(EXECUTABLES)$(CXX_DEPS)$(C_UPPER_DEPS) MatrixDot
 	-@echo ' '
 
 .PHONY: all clean dependents

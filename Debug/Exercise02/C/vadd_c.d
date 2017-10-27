@@ -41,4 +41,4 @@ Exercise02/C/vadd_c.o : ../Exercise02/C/vadd_c.c \
     /usr/lib/gcc/x86_64-linux-gnu/4.8/include/mmintrin.h \
     /usr/lib/gcc/x86_64-linux-gnu/4.8/include/mm_malloc.h \
     /usr/lib/gcc/x86_64-linux-gnu/4.8/include/emmintrin.h \
-    /home/estudiante/Parallel\ Computing/opencl-workspace/Vadd/C_common/err_code.h
+    /home/estudiante/Parallel\ Computing/opencl-workspace/MatrixDot/C_common/err_code.h
