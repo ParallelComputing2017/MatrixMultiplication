@@ -36,7 +36,7 @@
 								<inputType id="nvcc.compiler.input.c.281323727" superClass="nvcc.compiler.input.c"/>
 							</tool>
 							<tool id="nvcc.linker.base.1369978775" name="NVCC Linker" superClass="nvcc.linker.base">
-								<option id="nvcc.linker.option.paths.913177159" name="Library search path (-L)" superClass="nvcc.linker.option.paths" valueType="libPaths"/>
+								<option id="nvcc.linker.option.paths.913177159" name="Library search path (-L)" superClass="nvcc.linker.option.paths"/>
 								<option id="nvcc.linker.option.libs.1767900359" name="Libraries (-l)" superClass="nvcc.linker.option.libs" valueType="libs">
 									<listOptionValue builtIn="false" value="OpenCL"/>
 								</option>
@@ -86,11 +86,18 @@
 								<option id="nvcc.compiler.option.level.742570381" name="Generate host debug information (-g)" superClass="nvcc.compiler.option.level"/>
 								<option defaultValue="nvcc.compiler.optimization.level.most" id="nvcc.compiler.optimization.level.2098939268" name="Optimization Level" superClass="nvcc.compiler.optimization.level" valueType="enumerated"/>
 								<option id="nvcc.compiler.pic.1067028751" name="Position Independent Code (-fPIC)" superClass="nvcc.compiler.pic"/>
+								<option id="nvcc.compiler.include.paths.178435871" superClass="nvcc.compiler.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/${ProjName}/C_common}&quot;"/>
+								</option>
+								<option id="nvcc.compiler.cpp11option.940830050" superClass="nvcc.compiler.cpp11option" value="true" valueType="boolean"/>
 								<inputType id="nvcc.compiler.input.cu.1570132452" superClass="nvcc.compiler.input.cu"/>
 								<inputType id="nvcc.compiler.input.cpp.4021845" superClass="nvcc.compiler.input.cpp"/>
 								<inputType id="nvcc.compiler.input.c.943192052" superClass="nvcc.compiler.input.c"/>
 							</tool>
 							<tool id="nvcc.linker.base.1001562853" name="NVCC Linker" superClass="nvcc.linker.base">
+								<option id="nvcc.linker.option.libs.570451549" superClass="nvcc.linker.option.libs" valueType="libs">
+									<listOptionValue builtIn="false" value="OpenCL"/>
+								</option>
 								<inputType id="nvcc.linker.input.655781716" superClass="nvcc.linker.input">
 									<additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 									<additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -109,6 +116,7 @@
 				</configuration>
 			</storageModule>
 			<storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+			<storageModule moduleId="com.nvidia.cuda.ide.build.project.ICudaProjectConfiguration"/>
 		</cconfiguration>
 	</storageModule>
 	<storageModule moduleId="cdtBuildSystem" version="4.0.0">

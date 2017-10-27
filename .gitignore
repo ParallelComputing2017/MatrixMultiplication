@@ -35,7 +35,6 @@
 *.app
 
 # Build folders
-/Debug/
 /Release/
 
 # Eclipse settings

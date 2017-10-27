@@ -10,11 +10,15 @@
 
 #include <stdio.h>
 
-#define LENGTH (10)
+#define LENGTH (5)
 
-void multiply(float** a, float** b, float** c) {
+void mymultiply(float** a, float** b, float** c) {
+	printf("mymultiply \n");
+
 	for (int i = 0; i < LENGTH; i++) {
+		printf("multiply row: %i \n",  i);
 		for (int j = 0; j < LENGTH; j) {
+			printf("multiply column: %i \t",  j);
 			for (int k = 0; k < LENGTH; k) {
 				c[i][j] += a[i][k] * b[k][j];
 			}
@@ -22,9 +26,19 @@ void multiply(float** a, float** b, float** c) {
 	}
 }
 
+void allocateMatrix(float** matrix) {
+
+	for (int i = 0; i < LENGTH; i++) {
+		matrix[i] = new float[LENGTH];
+		for (int j = 0; j < LENGTH; j++) {
+			matrix[i][j] = 0;
+		}
+	}
+
+}
+
 void randomFill(float** matrix) {
 	int count = LENGTH;
-
 	for (int i = 0; i < count; i++) {
 		matrix[i] = new float[LENGTH];
 		for (int j = 0; j < count; j++) {
@@ -34,6 +48,7 @@ void randomFill(float** matrix) {
 }
 
 void printMatrix(float** matrix) {
+	printf("matrix: \n");
 	int i = 0;
 	int count = LENGTH;
 	for (i = 0; i < count; i++) {
