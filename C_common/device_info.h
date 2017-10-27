@@ -11,6 +11,8 @@
 // HISTORY:  Written by Tim Mattson, June 2010
 //
 //------------------------------------------------------------------------------
+#pragma once
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

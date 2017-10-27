@@ -14,7 +14,7 @@ void sequential(float** a, float** b, float** c) {
 }
 
 void opencl(float** a, float** b, float** c){
-
+	myopencl(a,b,c);
 }
 
 int main(int argc, char *argv[]) {

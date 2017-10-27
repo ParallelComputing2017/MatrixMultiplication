@@ -19,6 +19,8 @@
 #endif
 
 #include "err_code.h"
+#include "device_info.h"
+#include "wtime.h"
 
 //pick up device type from compiler command line or from
 //the default type
@@ -47,9 +49,9 @@ extern int output_device_info(cl_device_id);
 const char *KernelSource =
 		"\n"
 				"__kernel void mymultiply(                                                 \n"
-				"   __global float* a,                                                  \n"
-				"   __global float* b,                                                  \n"
-				"   __global float* c,                                                  \n"
+				"   __global float** a,                                                  \n"
+				"   __global float** b,                                                  \n"
+				"   __global float** c,                                                  \n"
 				"   const unsigned int count)                                           \n"
 				"{                                                                      \n"
 				"   for (int i = 0; i < count; i++) {           \n"
@@ -64,7 +66,11 @@ const char *KernelSource =
 
 //------------------------------------------------------------------------------
 
-void opencl(float** h_a, float** h_b, float** h_c) {
+int myopencl(float** h_a, float** h_b, float** h_c) {
+	int err;               // error code returned from OpenCL calls
+
+	int count = LENGTH;
+
 	size_t global;                  // global domain size
 
 	cl_device_id device_id;     // compute device id
@@ -95,7 +101,7 @@ void opencl(float** h_a, float** h_b, float** h_c) {
 	checkError(err, "Getting platforms");
 
 	// Secure a GPU
-	for (i = 0; i < numPlatforms; i++) {
+	for (int i = 0; i < numPlatforms; i++) {
 		err = clGetDeviceIDs(Platform[i], DEVICE, 1, &device_id, NULL);
 		if (err == CL_SUCCESS) {
 			break;
@@ -191,24 +197,6 @@ void opencl(float** h_a, float** h_b, float** h_c) {
 		printf("Error: Failed to read output array!\n%s\n", err_code(err));
 		exit(1);
 	}
-
-	// Test the results
-	correct = 0;
-	float tmp;
-
-	for (i = 0; i < count; i++) {
-		tmp = h_a[i] + h_b[i];     // assign element i of a+b to tmp
-		tmp -= h_c[i];        // compute deviation of expected and output result
-		if (tmp * tmp < TOL * TOL) // correct if square deviation is less than tolerance squared
-			correct++;
-		else {
-			printf(" tmp %f h_a %f h_b %f h_c %f \n", tmp, h_a[i], h_b[i],
-					h_c[i]);
-		}
-	}
-
-	// summarise results
-	printf("C = A+B:  %d out of %d results were correct.\n", correct, count);
 
 	// cleanup then shutdown
 	clReleaseMemObject(d_a);
