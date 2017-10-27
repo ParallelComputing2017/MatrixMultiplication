@@ -7,6 +7,15 @@
 #include <stdlib.h>
 
 #include "matrix.h"
+#include "mopencl.h"
+
+void sequential(float** a, float** b, float** c) {
+	mymultiply(a, b, c);
+}
+
+void opencl(float** a, float** b, float** c){
+
+}
 
 int main(int argc, char *argv[]) {
 
@@ -26,9 +35,12 @@ int main(int argc, char *argv[]) {
 	printMatrix(h_a);
 	printMatrix(h_b);
 
-	mymultiply(h_a, h_b, h_c);
+	//sequential(h_a, h_b, h_c);
+	opencl(h_a, h_b, h_c);
 
 	printMatrix(h_c);
 
 	return 0;
 }
+
+
