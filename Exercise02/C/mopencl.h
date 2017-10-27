@@ -145,26 +145,27 @@ int myopencl(float** h_a, float** h_b, float** h_c) {
 	ko_vadd = clCreateKernel(program, "vadd", &err);
 	checkError(err, "Creating kernel");
 
+	long matrix_size = sizeof(float) * count * count;
+
 	// Create the input (a, b) and output (c) arrays in device memory
-	d_a = clCreateBuffer(context, CL_MEM_READ_ONLY, sizeof(float) * count, NULL,
-			&err);
+	d_a = clCreateBuffer(context, CL_MEM_READ_ONLY, matrix_size, NULL, &err);
 	checkError(err, "Creating buffer d_a");
 
-	d_b = clCreateBuffer(context, CL_MEM_READ_ONLY, sizeof(float) * count, NULL,
-			&err);
+	d_b = clCreateBuffer(context, CL_MEM_READ_ONLY, matrix_size, NULL, &err);
 	checkError(err, "Creating buffer d_b");
 
-	d_c = clCreateBuffer(context, CL_MEM_WRITE_ONLY, sizeof(float) * count,
+	d_c = clCreateBuffer(context, CL_MEM_WRITE_ONLY, matrix_size,
 	NULL, &err);
 	checkError(err, "Creating buffer d_c");
 
 	// Write a and b vectors into compute device memory
-	err = clEnqueueWriteBuffer(commands, d_a, CL_TRUE, 0, sizeof(float) * count,
-			h_a, 0, NULL, NULL);
+
+	err = clEnqueueWriteBuffer(commands, d_a, CL_TRUE, 0, matrix_size, h_a, 0,
+			NULL, NULL);
 	checkError(err, "Copying h_a to device at d_a");
 
-	err = clEnqueueWriteBuffer(commands, d_b, CL_TRUE, 0, sizeof(float) * count,
-			h_b, 0, NULL, NULL);
+	err = clEnqueueWriteBuffer(commands, d_b, CL_TRUE, 0, matrix_size, h_b, 0,
+			NULL, NULL);
 	checkError(err, "Copying h_b to device at d_b");
 
 	// Set the arguments to our compute kernel
@@ -191,8 +192,8 @@ int myopencl(float** h_a, float** h_b, float** h_c) {
 	printf("\nThe kernel ran in %lf seconds\n", rtime);
 
 	// Read back the results from the compute device
-	err = clEnqueueReadBuffer(commands, d_c, CL_TRUE, 0, sizeof(float) * count,
-			h_c, 0, NULL, NULL);
+	err = clEnqueueReadBuffer(commands, d_c, CL_TRUE, 0, matrix_size, h_c, 0,
+			NULL, NULL);
 	if (err != CL_SUCCESS) {
 		printf("Error: Failed to read output array!\n%s\n", err_code(err));
 		exit(1);

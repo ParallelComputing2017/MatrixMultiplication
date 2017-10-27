@@ -35,8 +35,8 @@ int main(int argc, char *argv[]) {
 	printMatrix(h_a);
 	printMatrix(h_b);
 
-	//sequential(h_a, h_b, h_c);
-	opencl(h_a, h_b, h_c);
+	sequential(h_a, h_b, h_c);
+	//opencl(h_a, h_b, h_c);
 
 	printMatrix(h_c);
 
