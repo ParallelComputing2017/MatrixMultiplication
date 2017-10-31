@@ -16,16 +16,15 @@
 long M_LENGTH = 2;
 
 void mymultiply(float* a, float* b, float* c) {
-	printf("mymultiply \n");
+	printf("mymultiply %lu \n", M_LENGTH);
 
 	for (int i = 0; i < M_LENGTH; i++) {
 
 		for (int j = 0; j < M_LENGTH; j++) {
 
 			for (int k = 0; k < M_LENGTH; k++) {
-				int row = i * M_LENGTH;
-				int column = j;
-				c[row + column] += a[i * M_LENGTH + k] * b[k * M_LENGTH + j];
+
+				c[i * M_LENGTH + j] += a[i * M_LENGTH + k] * b[k * M_LENGTH + j];
 			}
 		}
 	}
@@ -42,9 +41,9 @@ void allocateMatrix(float* matrix) {
 }
 
 void randomFill(float* matrix) {
-	int count = M_LENGTH;
-	for (int i = 0; i < count; i++) {
-		for (int j = 0; j < count; j++) {
+
+	for (int i = 0; i < M_LENGTH; i++) {
+		for (int j = 0; j < M_LENGTH; j++) {
 			matrix[i * M_LENGTH + j] = rand() / (float) RAND_MAX;
 		}
 	}

@@ -179,7 +179,7 @@ int myopencl(float* h_a, float* h_b, float* h_c) {
 
 	// Execute the kernel over the entire range of our 1d input data set
 	// letting the OpenCL runtime choose the work-group size
-	global = count;
+	global = 64;
 	err = clEnqueueNDRangeKernel(commands, ko_vadd, 1, NULL, &global, NULL, 0,
 	NULL, NULL);
 	checkError(err, "Enqueueing kernel");

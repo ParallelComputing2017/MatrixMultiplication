@@ -19,7 +19,7 @@ void opencl(float* a, float* b, float* c) {
 
 int main(int argc, char *argv[]) {
 
-	M_LENGTH = 65;
+	M_LENGTH = 512;
 
 	float* h_a = (float*) calloc(M_LENGTH * M_LENGTH, sizeof(float)); // a vector
 	float* h_b = (float*) calloc(M_LENGTH * M_LENGTH, sizeof(float)); // b vector
