@@ -9,20 +9,23 @@
 #define MATRIX_H_
 
 #include <stdio.h>
+#include <math.h>
 
-#define LENGTH (2)
+#define TOLERANCE    (0.001)   // tolerance used in floating point comparisons
+
+long M_LENGTH = 2;
 
 void mymultiply(float* a, float* b, float* c) {
 	printf("mymultiply \n");
 
-	for (int i = 0; i < LENGTH; i++) {
+	for (int i = 0; i < M_LENGTH; i++) {
 
-		for (int j = 0; j < LENGTH; j++) {
+		for (int j = 0; j < M_LENGTH; j++) {
 
-			for (int k = 0; k < LENGTH; k++) {
-				int row = i * LENGTH;
+			for (int k = 0; k < M_LENGTH; k++) {
+				int row = i * M_LENGTH;
 				int column = j;
-				c[row + column] += a[i * LENGTH + k] * b[k * LENGTH + j];
+				c[row + column] += a[i * M_LENGTH + k] * b[k * M_LENGTH + j];
 			}
 		}
 	}
@@ -30,19 +33,19 @@ void mymultiply(float* a, float* b, float* c) {
 
 void allocateMatrix(float* matrix) {
 
-	for (int i = 0; i < LENGTH; i++) {
-		for (int j = 0; j < LENGTH; j++) {
-			matrix[i * LENGTH + j] = 0;
+	for (int i = 0; i < M_LENGTH; i++) {
+		for (int j = 0; j < M_LENGTH; j++) {
+			matrix[i * M_LENGTH + j] = 0;
 		}
 	}
 
 }
 
 void randomFill(float* matrix) {
-	int count = LENGTH;
+	int count = M_LENGTH;
 	for (int i = 0; i < count; i++) {
 		for (int j = 0; j < count; j++) {
-			matrix[i * LENGTH + j] = rand() / (float) RAND_MAX;
+			matrix[i * M_LENGTH + j] = rand() / (float) RAND_MAX;
 		}
 	}
 }
@@ -50,12 +53,31 @@ void randomFill(float* matrix) {
 void printMatrix(char* name, float* matrix) {
 	printf("Matrix %s: \n", name);
 
-	for (int i = 0; i < LENGTH; i++) {
-		for (int j = 0; j < LENGTH; j++) {
-			printf("%.2f  ", matrix[i * LENGTH + j]);
+	for (int i = 0; i < M_LENGTH; i++) {
+		for (int j = 0; j < M_LENGTH; j++) {
+			printf("%.2f  ", matrix[i * M_LENGTH + j]);
 		}
 		printf("\n");
 	}
+}
+
+bool equal(float* a, float* b) {
+
+	for (int i = 0; i < M_LENGTH; i++) {
+		for (int j = 0; j < M_LENGTH; j++) {
+
+			float a_element = a[i * M_LENGTH + j];
+			float b_element = b[i * M_LENGTH + j];
+			double diff = fabs(a_element - b_element);
+
+			if (diff > TOLERANCE) {
+				printf("(%i, %i) %.15f != %.15f  diff: %.15f\n", i, j, a_element, b_element,
+						diff);
+				return false;
+			}
+		}
+	}
+	return true;
 }
 
 #endif /* MATRIX_H_ */

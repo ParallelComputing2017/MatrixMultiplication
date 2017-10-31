@@ -69,7 +69,7 @@ const char *KernelSource =
 int myopencl(float* h_a, float* h_b, float* h_c) {
 	int err;               // error code returned from OpenCL calls
 
-	int count = LENGTH;
+	int count = M_LENGTH;
 
 	size_t global;                  // global domain size
 

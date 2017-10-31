@@ -19,22 +19,27 @@ void opencl(float* a, float* b, float* c) {
 
 int main(int argc, char *argv[]) {
 
-	float* h_a = (float*) calloc(LENGTH * LENGTH, sizeof(float));  // a vector
-	float* h_b = (float*) calloc(LENGTH * LENGTH, sizeof(float));  // b vector
-	float* h_c = (float*) calloc(LENGTH * LENGTH, sizeof(float));
+	M_LENGTH = 65;
+
+	float* h_a = (float*) calloc(M_LENGTH * M_LENGTH, sizeof(float)); // a vector
+	float* h_b = (float*) calloc(M_LENGTH * M_LENGTH, sizeof(float)); // b vector
+	float* h_c = (float*) calloc(M_LENGTH * M_LENGTH, sizeof(float));
+	float* h_s = (float*) calloc(M_LENGTH * M_LENGTH, sizeof(float));
 
 	randomFill(h_a);
 	randomFill(h_b);
 	allocateMatrix(h_c);
+	allocateMatrix(h_s);
 
 	printf("hello 24 \n");
 
-	sequential(h_a, h_b, h_c);
-	printMatrix((char *)"Sequential", h_c);
-
+	sequential(h_a, h_b, h_s);
+	printMatrix((char *) "Sequential", h_s);
 
 	opencl(h_a, h_b, h_c);
-	printMatrix((char *)"OpenCL", h_c);
+	printMatrix((char *) "OpenCL", h_c);
+
+	printf("Test: %s", (equal(h_s, h_c) ? "Passed" : "Failed"));
 
 	// FREE memory
 
