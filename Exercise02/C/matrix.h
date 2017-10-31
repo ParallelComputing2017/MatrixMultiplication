@@ -47,8 +47,8 @@ void randomFill(float* matrix) {
 	}
 }
 
-void printMatrix(float* matrix) {
-	printf("matrix: \n");
+void printMatrix(char* name, float* matrix) {
+	printf("Matrix %s: \n", name);
 
 	for (int i = 0; i < LENGTH; i++) {
 		for (int j = 0; j < LENGTH; j++) {

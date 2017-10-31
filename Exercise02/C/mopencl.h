@@ -57,7 +57,7 @@ const char *KernelSource =
 				"   for (int i = 0; i < count; i++) {           \n"
 				"   	for (int j = 0; j < count; j++) {       \n"
 				"   		for (int k = 0; k < count; k++) {   \n"
-				"   			c[i * count + j] += a[i * count +k] * b[k * count +j];    \n"
+				"   			c[i * count + j] += a[i * count + k] * b[k * count + j];    \n"
 				"   		}                                    \n"
 				"   	}                                        \n"
 				"   }                                            \n"
@@ -207,10 +207,6 @@ int myopencl(float* h_a, float* h_b, float* h_c) {
 	clReleaseKernel(ko_vadd);
 	clReleaseCommandQueue(commands);
 	clReleaseContext(context);
-
-	free(h_a);
-	free(h_b);
-	free(h_c);
 
 }
 
