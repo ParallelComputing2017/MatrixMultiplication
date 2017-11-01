@@ -48,8 +48,8 @@ int main(int argc, char *argv[]) {
 
 	randomFill(h_a);
 	randomFill(h_b);
-	allocateMatrix(h_c);
-	allocateMatrix(h_s);
+	zeroFill(h_c);
+	zeroFill(h_s);
 
 	printf("hello 24 \n");
 
@@ -68,6 +68,7 @@ int main(int argc, char *argv[]) {
 	result = result && equal(h_s, h_c);
 
 	// OPENCL WITH TEMP VAR
+	zeroFill(h_c);
 	ocl_tv_timer.start();
 	myopencl_simple(h_a, h_b, h_c);
 	ocl_tv_timer.stop();
@@ -75,13 +76,14 @@ int main(int argc, char *argv[]) {
 	result = result && equal(h_s, h_c);
 
 	// OPENCL WITH shared memory
+	zeroFill(h_c);
 	ocl_shm_timer.start();
 	myopencl_shared_memory(h_a, h_b, h_c);
 	ocl_shm_timer.stop();
 
 	result = result && equal(h_s, h_c);
 
-	printf("matrix_size \t sequential \t ocl_simple \t ocl_temp_var \t ocl_shared_mem \t result \n");
+	printf("m_size \t sequential \t ocl_simple \t ocl_temp_var \t ocl_shared_mem \t result \n");
 	printLog(M_LENGTH, sequential_timer, opencl_timer, ocl_tv_timer,
 			ocl_shm_timer, result);
 

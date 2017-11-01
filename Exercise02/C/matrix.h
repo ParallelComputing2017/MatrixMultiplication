@@ -30,7 +30,7 @@ void mymultiply(float* a, float* b, float* c) {
 	}
 }
 
-void allocateMatrix(float* matrix) {
+void zeroFill(float* matrix) {
 
 	for (int i = 0; i < M_LENGTH; i++) {
 		for (int j = 0; j < M_LENGTH; j++) {
