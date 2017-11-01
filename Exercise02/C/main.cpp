@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
 	// OPENCL WITH TEMP VAR
 	zeroFill(h_c);
 	ocl_tv_timer.start();
-	myopencl_simple(h_a, h_b, h_c);
+	myopencl_temp_var(h_a, h_b, h_c);
 	ocl_tv_timer.stop();
 
 	result = result && equal(h_s, h_c);
@@ -83,7 +83,7 @@ int main(int argc, char *argv[]) {
 
 	result = result && equal(h_s, h_c);
 
-	printf("m_size \t sequential \t ocl_simple \t ocl_temp_var \t ocl_shared_mem \t result \n");
+	printf("m_size \t sequential \t ocl_simple \t oclTempVar \t oclSharedMem \t test \n");
 	printLog(M_LENGTH, sequential_timer, opencl_timer, ocl_tv_timer,
 			ocl_shm_timer, result);
 

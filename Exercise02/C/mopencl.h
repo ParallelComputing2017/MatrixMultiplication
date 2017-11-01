@@ -95,23 +95,32 @@ const char *KernelSource_temp_var =
 const char *KernelSource_shared_memory =
 		"\n"
 				"__kernel void mymultiply(                                                 \n"
-				"   __global float* a,                                                  \n"
-				"   __global float* b,                                                  \n"
-				"   __global float* c,                                                  \n"
+				"   __global float* A,                                                  \n"
+				"   __global float* B,                                                  \n"
+				"   __global float* C,                                                  \n"
 				"   const unsigned int count){                                           \n"
 				"                                                                      \n"
 				"	// Thread identifiers		\n"
 				"	uint y = get_global_id(0);			\n"
+				""
+				"	// Local memory row		\n"
+				"	__local float Asub[1024];		\n"
+				""
 				"	if( y < count){			\n"
 				"   	// Row pointer		\n"
-				"		const __global float* row = a + y * count;		\n"
-
+				"		const __global float* row = A + y * count;		\n"
+				""
+				"		// Load the row		\n"
+				"		for(int x = 0; x < count; x++){		\n"
+				"			Asub[x] = row[x];		\n"
+				"		}		\n"
+				""
 				"   	for (int j = 0; j < count; j++) {       \n"
 				"   		float temp = 0;   					\n"
 				"   		for (int k = 0; k < count; k++) {   \n"
-				"   			temp += row[k] * b[k * count + j];    \n"
+				"   			temp += Asub[k] * B[k * count + j];    \n"
 				"   		}                                   \n"
-				"			c[y * count + j] = temp;			\n"
+				"			C[y * count + j] = temp;			\n"
 				"   	}                                       \n"
 				"	}			\n"
 				"}                                                                      \n"
@@ -124,7 +133,7 @@ int myopencl(float* h_a, float* h_b, float* h_c, const char *KernelSource) {
 
 	int count = M_LENGTH;
 
-	size_t global;                  // global domain size
+	size_t global = count;                  // global domain size
 
 	cl_device_id device_id;     // compute device id
 	cl_context context;       // compute context
@@ -233,7 +242,7 @@ int myopencl(float* h_a, float* h_b, float* h_c, const char *KernelSource) {
 
 // Execute the kernel over the entire range of our 1d input data set
 // letting the OpenCL runtime choose the work-group size
-	global = count;
+
 	err = clEnqueueNDRangeKernel(commands, ko_vadd, 1, NULL, &global, NULL, 0,
 	NULL, NULL);
 	checkError(err, "Enqueueing kernel");
